@@ -21,8 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -32,6 +32,21 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+public function courses()
+{
+    return $this->hasMany(\App\Models\Course::class, 'student_id');
+}
+
+public function grades()
+{
+    return $this->hasMany(\App\Models\Grade::class, 'student_id');
+}
+
 
     /**
      * Get the attributes that should be cast.
